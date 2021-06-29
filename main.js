@@ -19,8 +19,8 @@ const addTask = () =>{
             tasks = [...[],{id:id, title:task.value, day:day.value}];
         }
         let currTasks = JSON.parse(localStorage.getItem('tasks'));
-        console.log(currTasks);
-        console.log("new tasks list",tasks);
+//         console.log(currTasks);
+//         console.log("new tasks list",tasks);
         localStorage.setItem("tasks", JSON.stringify(tasks));
 
         if(currTasks == null  || currTasks.length<=0 ){
@@ -52,7 +52,7 @@ const addTask = () =>{
         day.value ='';
 
         let deleteBtn = document.querySelectorAll('.delete-btn')
-        console.log('delete btn',deleteBtn);
+//         console.log('delete btn',deleteBtn);
         for(let i = 0 ; i< deleteBtn.length; i++){
             deleteBtn[i].addEventListener('click',()=>{
                 let key = parseFloat(deleteBtn[i].getAttribute('key'));
@@ -89,10 +89,10 @@ const render = (itemTask) =>{
 }
 
 const deleteTask = (index) =>{
-    console.log('id delete', index);
+//     console.log('id delete', index);
     let currTasks = JSON.parse(localStorage.getItem('tasks'));
     let newTasks;
-    console.log('tasks list before delete',currTasks);
+//     console.log('tasks list before delete',currTasks);
 
 
 
@@ -106,7 +106,7 @@ const deleteTask = (index) =>{
            You don't have any task
         `
     }
-    console.log('tasks after delete', newTasks);
+//     console.log('tasks after delete', newTasks);
     localStorage.setItem('tasks',JSON.stringify(newTasks));
 
     
@@ -119,7 +119,7 @@ render(JSON.parse(localStorage.getItem('tasks')))
 
 
 let deleteBtn = document.querySelectorAll('.delete-btn')
-console.log('delete btn',deleteBtn);
+// console.log('delete btn',deleteBtn);
 for(let i = 0 ; i< deleteBtn.length; i++){
     deleteBtn[i].addEventListener('click',()=>{
         let key = parseFloat(deleteBtn[i].getAttribute('key'));
