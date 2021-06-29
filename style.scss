@@ -79,6 +79,7 @@ main{
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     min-height: 100vh;
+   
     background: linear-gradient(to right top, #65dfc9, #6cdbeb); 
     display: flex;
     align-items: center;
@@ -87,6 +88,8 @@ main{
 .todo-wrap{
     background-color: white;
     min-height: 90vh;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     width: 50%;
     border-radius: 3rem;
     background: linear-gradient(
@@ -124,8 +127,13 @@ main{
         border: 2px solid green;
     }
     & h3{
+        word-wrap: break-word;
         font-weight: bold;
         color: #65dfc9;
+        // overflow: auto;
+    }
+    & div{
+        width: 85%;
     }
 }
 label{
@@ -176,5 +184,31 @@ input{
         
         background-color: #6cdbeb;
         box-shadow: 1rem 1rem 5rem #65dfc9;
+    }
+}
+@media screen and(max-width:1335px){
+    .todo-wrap{
+        width: 80%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+@media screen and(max-width:1023px){
+    .todo-wrap{
+        width: 90%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+   .heading{
+       font-size: 3rem;
+       padding: 2rem;
+   }
+   .submit-btn {
+       width: 30%;
+   }
+}
+@media screen and(max-width:767px){
+    .heading{
+        font-size: 2.2rem;
     }
 }
