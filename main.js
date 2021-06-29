@@ -23,7 +23,7 @@ const addTask = () =>{
         console.log("new tasks list",tasks);
         localStorage.setItem("tasks", JSON.stringify(tasks));
 
-        if(currTasks == null){
+        if(currTasks == null  || currTasks.length<=0 ){
             listSpace.innerHTML = `
             <li class="task-item" >
                 <div>
@@ -67,7 +67,7 @@ const addTask = () =>{
 }
 const render = (itemTask) =>{
 
-    if(itemTask==null){
+    if(itemTask==null || itemTask.length<=0){
         listSpace.innerHTML = `
            You don't have any task
         `
