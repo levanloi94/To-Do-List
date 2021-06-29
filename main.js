@@ -67,7 +67,7 @@ const addTask = () =>{
 }
 const render = (itemTask) =>{
 
-    if(itemTask.length==null){
+    if(itemTask===null){
         listSpace.innerHTML = `
            You don't have any task
         `
