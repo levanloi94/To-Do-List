@@ -314,6 +314,12 @@ input:focus {
   button {
     font-size: 1.3rem;
   }
+
+  .close-box {
+    top: 2rem;
+    right: 2rem;
+    font-size: 4rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
