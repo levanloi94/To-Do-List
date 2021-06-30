@@ -19,12 +19,26 @@ const addTask = () =>{
             tasks = [...[],{id:id, title:task.value, day:day.value}];
         }
         let currTasks = JSON.parse(localStorage.getItem('tasks'));
+//         console.log(currTasks);
+//         console.log("new tasks list",tasks);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
 
         localStorage.setItem("tasks", JSON.stringify(tasks));
 
         render(tasks);
         task.value ='';
         day.value ='';
+
+        let deleteBtn = document.querySelectorAll('.delete-btn')
+//         console.log('delete btn',deleteBtn);
+        for(let i = 0 ; i< deleteBtn.length; i++){
+            deleteBtn[i].addEventListener('click',()=>{
+                let key = parseFloat(deleteBtn[i].getAttribute('key'));
+                deleteTask(key);
+                deleteBtn[i].parentElement.remove();
+            })
+        }
+
     }else{
         alert('plz enter task')
     }
@@ -113,8 +127,5 @@ const updateTask = (key)=>{
 }
 
 render(JSON.parse(localStorage.getItem('tasks')))
-
-
-
 
 
