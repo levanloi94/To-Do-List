@@ -84,6 +84,10 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+button, input{
+    font-family: "Poppins", sans-serif;
 }
 .todo-wrap{
     background-color: white;
@@ -123,6 +127,7 @@ main{
     align-items: center;
     justify-content: space-between;
     // line-height: 1.5;
+    transition: .3s ease-in-out;
     &.important{
         border: 2px solid green;
     }
@@ -132,8 +137,17 @@ main{
         color: #65dfc9;
         // overflow: auto;
     }
-    & div{
-        width: 85%;
+    .left-box{
+        width: 80%;
+    }
+    .right-box{
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        & button:last-child{
+            margin-left: .5rem;
+        }
     }
 }
 label{
@@ -155,7 +169,7 @@ input{
         box-shadow: 1rem 1rem 5rem #65dfc9;
     }
 }
-.submit-btn{
+.submit-btn, .submit-update-btn{
     display: block;
     margin: 0 auto;
     width: 40%;
@@ -165,12 +179,12 @@ input{
     background-color: #65dfc9;
     color: white;
     &:hover{
-        
         background-color: #6cdbeb;
         box-shadow: 1rem 1rem 5rem #65dfc9;
     }
 }
-.delete-btn{
+
+.delete-btn, .update-btn{
     border: none;
     outline: none;
     padding: 1rem;
@@ -181,12 +195,59 @@ input{
     font-weight: bold;
     color: white;
     &:hover{
-        
+
         background-color: #6cdbeb;
         box-shadow: 1rem 1rem 5rem #65dfc9;
     }
 }
+
+.update-container{
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    min-height: 70vh;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 40%;
+    border-radius: 3rem;
+    background: linear-gradient(
+    to right bottom,    
+    rgba(255, 255,255, 0.7), 
+    rgba(255, 255, 255, 0.3));
+    backdrop-filter: blur(2rem);
+    padding-left:6rem;
+    padding-right: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s linear;
+    &.is-active{
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.update-wrap{
+    width: 100%;
+}
+.input-update-text, .input-update-day{
+    background: linear-gradient(to right top, #65dfc9, #6cdbeb); 
+}
+.close-box{
+    position: absolute;
+    top: 5rem;
+    right: 5rem;
+    font-size: 4rem;
+    color: #6cdbeb;
+    cursor: pointer;
+}
 @media screen and(max-width:1335px){
+    .update-container{
+        width: 60%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
     .todo-wrap{
         width: 80%;
         padding-left: 2rem;
@@ -194,6 +255,11 @@ input{
     }
 }
 @media screen and(max-width:1023px){
+    .update-container{
+        width: 70%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
     .todo-wrap{
         width: 90%;
         padding-left: 2rem;
@@ -211,4 +277,24 @@ input{
     .heading{
         font-size: 2.2rem;
     }
+    .update-container{
+        width: 80%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .task-item{
+        display: block;
+        .left-box{
+            width: 100%;
+            margin-bottom: .5rem;
+        }
+        .right-box{
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+    button{
+        font-size: 1.3rem;
+    }
+    
 }
