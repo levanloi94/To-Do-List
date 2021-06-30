@@ -316,8 +316,8 @@ input:focus {
   }
 
   .close-box {
-    top: 2rem;
-    right: 2rem;
+    top: 1rem;
+    right: 1rem;
     font-size: 4rem;
   }
 }
