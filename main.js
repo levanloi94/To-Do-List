@@ -103,25 +103,31 @@ addBtn.addEventListener("click", (e)=>{
 
 // UPDATE func
 const updateTask = (key)=>{
+    let updateContainer = document.querySelector('.update-container');
+    let updateTitle = document.querySelector('.input-update-text');
+    let updateDay = document.querySelector('.input-update-day');
 	let currTasks = JSON.parse(localStorage.getItem('tasks'));
+    let closeBtn = document.querySelector('.close-box');
+    let submitUpdate = document.querySelector('.submit-update-btn');
+    
 	//Find index of specific object using findIndex method.    
 	objIndex = currTasks.findIndex((obj => obj.id == key));
 	//Log object to Console.
-	// console.log("Before update: ", currTasks[objIndex])
-	
-	document.querySelector('.update-container').classList.add('is-active');
-	document.querySelector('.close-box').addEventListener('click',()=>{
-		document.querySelector('.update-container').classList.remove('is-active');
+	console.log("Before update: ", currTasks[objIndex])
+	let newTask = currTasks[objIndex];
+	updateContainer.classList.add('is-active');
+	closeBtn.addEventListener('click',()=>{
+		updateContainer.classList.remove('is-active');
 	})
-	document.querySelector('.input-update-text').value = currTasks[objIndex].title;
-	document.querySelector('.input-update-day').value = currTasks[objIndex].day;
-	document.querySelector('.submit-update-btn').addEventListener('click', ()=>{
-		currTasks[objIndex].title = document.querySelector('.input-update-text').value;
-		currTasks[objIndex].day = document.querySelector('.input-update-day').value;
+	updateTitle.value = currTasks[objIndex].title;
+	updateDay.value = currTasks[objIndex].day;
+	submitUpdate.addEventListener('click', ()=>{
+		newTask.title = updateTitle.value;
+		newTask.day = updateDay.value;
 		// console.log('after update',currTasks[objIndex]);
 		render(currTasks);
 		localStorage.setItem('tasks', JSON.stringify(currTasks));
-		document.querySelector('.update-container').classList.remove('is-active');
+		updateContainer.classList.remove('is-active');
 	})
 	
 }
