@@ -22,44 +22,32 @@ const addTask = () =>{
 //         console.log(currTasks);
 //         console.log("new tasks list",tasks);
         localStorage.setItem("tasks", JSON.stringify(tasks));
-
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-
+        loadBtn();
         render(tasks);
         task.value ='';
         day.value ='';
-
-        let deleteBtn = document.querySelectorAll('.delete-btn')
-//         console.log('delete btn',deleteBtn);
-        for(let i = 0 ; i< deleteBtn.length; i++){
-            deleteBtn[i].addEventListener('click',()=>{
-                let key = parseFloat(deleteBtn[i].getAttribute('key'));
-                deleteTask(key);
-                deleteBtn[i].parentElement.remove();
-            })
-        }
-
     }else{
         alert('plz enter task')
     }
 }
 
 const loadBtn = () =>{
-  let deleteBtn = document.querySelectorAll('.delete-btn')
-  for(let i = 0 ; i< deleteBtn.length; i++){
-    deleteBtn[i].addEventListener('click',()=>{
-      let key = parseInt(deleteBtn[i].getAttribute('key'));
-      deleteTask(key);
-    })
-  }
+    let deleteBtn = document.querySelectorAll('.delete-btn')
+    for(let item of deleteBtn){
+        item.addEventListener('click',()=>{
+            let key = parseInt(item.getAttribute('data-key'));
+            deleteTask(key);
+            item.parentElement.parentElement.remove();
+        })
+    }
+
 	let updateBtn  =  document.querySelectorAll('.update-btn')
-	for(let i = 0; i < updateBtn.length; i++){
-		updateBtn[i].addEventListener(('click'), ()=>{
-			let key = parseInt(updateBtn[i].getAttribute('key'));
-			updateTask(key);
-			// console.log(key);
-		})
-	}
+    for(let item of updateBtn){
+       item.addEventListener('click', ()=>{
+           let key = parseInt(item.getAttribute('data-key'));
+           updateTask(key);
+       })
+    }
 }
 
 //Render all task func
@@ -76,8 +64,8 @@ const render = (itemTask) =>{
                             <h4>${item.day}</h4>
                         </div>
                         <div class="right-box">
-                            <button class="delete-btn" key = "${item.id}">DONE</button>
-                            <button class="update-btn" key = "${item.id}">UPDATE</button>
+                            <button class="delete-btn" data-key = "${item.id}">DONE</button>
+                            <button class="update-btn" data-key = "${item.id}">UPDATE</button>
                         </div>
                     </li>
                 `
@@ -93,9 +81,12 @@ const deleteTask = (index) =>{
     let newTasks = currTasks.filter(tasks => {
         return tasks.id !==index;
     })
+    if(newTasks.length == 0){
+        listSpace.innerHTML = `You don't have any task`
+    }
     // console.log(newTasks);
     localStorage.setItem('tasks', JSON.stringify(newTasks));
-    render(newTasks);
+    // render(newTasks);
 }
 addBtn.addEventListener("click", (e)=>{
     addTask();
@@ -103,17 +94,17 @@ addBtn.addEventListener("click", (e)=>{
 
 // UPDATE func
 const updateTask = (key)=>{
-    let updateContainer = document.querySelector('.update-container');
-    let updateTitle = document.querySelector('.input-update-text');
-    let updateDay = document.querySelector('.input-update-day');
-	let currTasks = JSON.parse(localStorage.getItem('tasks'));
-    let closeBtn = document.querySelector('.close-box');
-    let submitUpdate = document.querySelector('.submit-update-btn');
-    
+    const updateContainer = document.querySelector('.update-container');
+    const updateTitle = document.querySelector('.input-update-text');
+    const updateDay = document.querySelector('.input-update-day');
+	const currTasks = JSON.parse(localStorage.getItem('tasks'));
+    const closeBtn = document.querySelector('.close-box');
+    const submitUpdate = document.querySelector('.submit-update-btn');
+
 	//Find index of specific object using findIndex method.    
 	objIndex = currTasks.findIndex((obj => obj.id == key));
 	//Log object to Console.
-	console.log("Before update: ", currTasks[objIndex])
+	// console.log("Before update: ", currTasks[objIndex])
 	let newTask = currTasks[objIndex];
 	updateContainer.classList.add('is-active');
 	closeBtn.addEventListener('click',()=>{
@@ -121,17 +112,20 @@ const updateTask = (key)=>{
 	})
 	updateTitle.value = currTasks[objIndex].title;
 	updateDay.value = currTasks[objIndex].day;
-	submitUpdate.addEventListener('click', ()=>{
-		newTask.title = updateTitle.value;
-		newTask.day = updateDay.value;
-		// console.log('after update',currTasks[objIndex]);
-		render(currTasks);
-		localStorage.setItem('tasks', JSON.stringify(currTasks));
-		updateContainer.classList.remove('is-active');
+	submitUpdate.addEventListener('click', () => {
+		if(updateTitle.value !== '' && updateDay.value !== ''){
+            newTask.title = updateTitle.value;
+            newTask.day = updateDay.value;
+            // console.log('after update',currTasks[objIndex]);
+            render(currTasks);
+            localStorage.setItem('tasks', JSON.stringify(currTasks));
+            updateContainer.classList.remove('is-active');
+        }else{
+            alert('Plz add update task or update day')
+        }
 	})
-	
 }
-
+// render task list after open page
 render(JSON.parse(localStorage.getItem('tasks')))
 
 
