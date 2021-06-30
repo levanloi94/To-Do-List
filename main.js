@@ -14,9 +14,9 @@ const addTask = () =>{
     tasks =JSON.parse(tasks);
     if(task.value!=='' && day.value !==''){
         if(tasks!==null){
-            tasks = [...tasks,{id:id, title:task.value, day:day.value}];
+            tasks = [...tasks,{id:id, title:task.value, day:day.value, complete:false}];
         }else{
-            tasks = [...[],{id:id, title:task.value, day:day.value}];
+            tasks = [...[],{id:id, title:task.value, day:day.value, complete:false}];
         }
         let currTasks = JSON.parse(localStorage.getItem('tasks'));
 //         console.log(currTasks);
@@ -48,6 +48,17 @@ const loadBtn = () =>{
            updateTask(key);
        })
     }
+
+    let doneEvent = document.querySelectorAll('.task-item')
+    console.log(doneEvent);
+    for(let item of doneEvent){
+        item.addEventListener('dblclick', ()=>{
+            let key = parseInt(item.getAttribute('data-key'));
+            item.classList.toggle('is-active');
+            checkDoneTask(key);
+        })
+    }
+
 }
 
 //Render all task func
@@ -57,14 +68,14 @@ const render = (itemTask) =>{
     }else{
         let listItem = itemTask.map((item)=>{
             return `
-                   <li class="task-item" >
+                   <li class="task-item ${item.complete ? `is-active` : ""}" data-key = "${item.id}">
                         <div class="left-box">
                             <h3>${item.title}</h3>
                             <br/>
                             <h4>${item.day}</h4>
                         </div>
                         <div class="right-box">
-                            <button class="delete-btn" data-key = "${item.id}">DONE</button>
+                            <button class="delete-btn" data-key = "${item.id}">DELETE</button>
                             <button class="update-btn" data-key = "${item.id}">UPDATE</button>
                         </div>
                     </li>
@@ -88,18 +99,33 @@ const deleteTask = (index) =>{
     localStorage.setItem('tasks', JSON.stringify(newTasks));
     // render(newTasks);
 }
+//Add task event
 addBtn.addEventListener("click", (e)=>{
     addTask();
 })
+//Check done task func
+const checkDoneTask =(key) =>{
+    const currTasks = JSON.parse(localStorage.getItem('tasks'));
+    //Find index of specific object using findIndex method.    
+	objIndex = currTasks.findIndex((obj => obj.id == key));
+	//Log object to Console.
+	// console.log("Before update: ", currTasks[objIndex]);
+	let newTask = currTasks[objIndex];
+    
+    newTask.complete ? newTask.complete = false : newTask.complete = true
+
+    // console.log("after update: ", currTasks[objIndex]);
+    localStorage.setItem('tasks', JSON.stringify(currTasks));
+}
 
 // UPDATE func
 const updateTask = (key)=>{
     const updateContainer = document.querySelector('.update-container');
     const updateTitle = document.querySelector('.input-update-text');
     const updateDay = document.querySelector('.input-update-day');
-	const currTasks = JSON.parse(localStorage.getItem('tasks'));
     const closeBtn = document.querySelector('.close-box');
     const submitUpdate = document.querySelector('.submit-update-btn');
+    const currTasks = JSON.parse(localStorage.getItem('tasks'));
 
 	//Find index of specific object using findIndex method.    
 	objIndex = currTasks.findIndex((obj => obj.id == key));

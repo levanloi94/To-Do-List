@@ -84,6 +84,7 @@ main{
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
 }
 button, input{
     font-family: "Poppins", sans-serif;
@@ -127,10 +128,9 @@ button, input{
     justify-content: space-between;
     // line-height: 1.5;
     transition: .3s ease-in-out;
-    animation: task .3s ease-in-out;
-    &.important{
-        border: 2px solid green;
-    }
+    animation: task .2s ease-in-out;
+    border: 5px solid transparent;
+    cursor: pointer;
     & h3{
         word-wrap: break-word;
         font-weight: bold;
@@ -148,6 +148,10 @@ button, input{
         & button:last-child{
             margin-left: .5rem;
         }
+    }
+    &.is-active{
+        border: 5px solid #6cdbeb;
+        
     }
 }
 label{
@@ -268,13 +272,13 @@ input{
     border-radius: 50%;
 }
 .circle1{
-    top: 0;
+    top: 1rem;
     right: 15%;
 }
 .circle2{
     height: 20rem;
     width: 20rem;
-    bottom: 0;
+    bottom: 1rem;
     left: 20%;
 }
 @media screen and(max-width:1335px){
@@ -288,17 +292,26 @@ input{
         padding-left: 2rem;
         padding-right: 2rem;
     }
+    .circle1{
+        top: 0;
+
+        right: 0;
+    }
+    .circle2{
+        bottom: 0;
+        left: 0;
+    }
 }
 @media screen and(max-width:1023px){
     .update-wrap{
         width: 70%;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
     .todo-wrap{
         width: 90%;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
    .heading{
        font-size: 3rem;
@@ -307,8 +320,12 @@ input{
    .submit-btn {
        width: 30%;
    }
+  
 }
 @media screen and(max-width:767px){
+    main{
+        padding:0;
+    }
     .heading{
         font-size: 2.2rem;
     }
@@ -337,7 +354,6 @@ input{
         font-size: 4rem;
         
     }
-    
 }
 // Animation
 @keyframes task {
