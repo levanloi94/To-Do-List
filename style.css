@@ -130,7 +130,7 @@ button, input {
 }
 
 .task-item {
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 2.5rem;
   background-color: white;
   border-radius: 1rem;
   margin-bottom: 2rem;
@@ -139,13 +139,16 @@ button, input {
   justify-content: space-between;
   transition: 0.3s ease-in-out;
   animation: task 0.2s ease-in-out;
-  border: 5px solid transparent;
+  border-left: 8px solid white;
   cursor: pointer;
 }
 .task-item h3 {
   word-wrap: break-word;
   font-weight: bold;
   color: #65dfc9;
+}
+.task-item h4 {
+  font-size: 1.4rem;
 }
 .task-item .left-box {
   width: 80%;
@@ -160,7 +163,7 @@ button, input {
   margin-left: 0.5rem;
 }
 .task-item.is-active {
-  border: 5px solid #6cdbeb;
+  border-left: 8px solid #6cdbeb;
 }
 
 label {

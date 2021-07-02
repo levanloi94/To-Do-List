@@ -5,7 +5,8 @@ const day = document.querySelector('.input-day');
 const addBtn = document.querySelector('.submit-btn');
 //Random id func
 const randomId = ()=>{
-    return Math.floor(Math.random()*10000)
+    return ~~(Math.random()*10000)
+    // Bitwise ~~ == 
 }
 //Add new task func
 const addTask = () =>{  
@@ -58,7 +59,6 @@ const loadBtn = () =>{
             checkDoneTask(key);
         })
     }
-
 }
 
 //Render all task func
